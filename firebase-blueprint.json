@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "LeaderboardEntry": {
+      "title": "Leaderboard Entry",
+      "description": "A single entry in the global smash leaderboard",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique ID of the user"
+        },
+        "username": {
+          "type": "string",
+          "description": "The display name of the user"
+        },
+        "score": {
+          "type": "number",
+          "description": "The total devices smashed or total damage dealt"
+        },
+        "devicesSmashed": {
+          "type": "number",
+          "description": "Total count of devices destroyed"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the score was last updated"
+        }
+      },
+      "required": ["userId", "username", "score", "devicesSmashed", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Persistent user game progress",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "totalScore": { "type": "number" },
+        "currentLevel": { "type": "number" },
+        "unlockedHammers": { "type": "array", "items": { "type": "string" } },
+        "equiptHammer": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "username", "totalScore", "currentLevel", "unlockedHammers", "equiptHammer", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/leaderboard/{userId}": {
+      "schema": "LeaderboardEntry",
+      "description": "Global leaderboard entries"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Individual user game progress"
+    }
+  }
+}
